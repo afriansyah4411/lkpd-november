@@ -1,11 +1,50 @@
-import tkinter as tk
+import turtle
 
-root = tk.Tk()
+def gambar_bendera():
+    # Pengaturan layar
+    screen = turtle.Screen()
+    screen.title("Bendera Indonesia")
+    screen.bgcolor("black")
 
-label1 = tk.Label(root, text="Label 1")
-label1.place(x=10, y=10)
+    # Membuat turtle
+    t = turtle.Turtle()
+    t.speed(3)
 
-button1 = tk.Button(root, text="Tombol 1")
-button1.place(x=50, y=50, width=100, height=30)
+    # Ukuran bendera
+    lebar = 300
+    tinggi = 200
 
-root.mainloop()
+    # Gambar bagian merah
+    t.penup()
+    t.goto(-lebar / 2, tinggi / 2)
+    t.pendown()
+    t.color("red")
+    t.begin_fill()
+    for _ in range(2):
+        t.forward(lebar)
+        t.right(90)
+        t.forward(tinggi / 2)
+        t.right(90)
+    t.end_fill()
+
+    # Gambar bagian putih
+    t.penup()
+    t.goto(-lebar / 2, 0)
+    t.pendown()
+    t.color("white")
+    t.begin_fill()
+    for _ in range(2):
+        t.forward(lebar)
+        t.right(90)
+        t.forward(tinggi / 2)
+        t.right(90)
+    t.end_fill()
+
+    # Hapus turtle
+    t.hideturtle()
+
+    # Tampilkan layar
+    screen.mainloop()
+
+# Panggil fungsi
+gambar_bendera()

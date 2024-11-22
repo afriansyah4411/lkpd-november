@@ -1,41 +1,55 @@
-import tkinter as tk
-from tkinter import ttk
-from tkinter.messagebox import showinfo
+import turtle
 
-# Membuat jendela utama
-window = tk.Tk()
-window.configure(bg="white")  # Mengatur warna latar belakang jendela
-window.geometry("300x200")  # Mengatur ukuran jendela
-window.resizable(False, False)  # Mencegah jendela diubah ukurannya
-window.title("Sapa")  # Mengatur judul jendela
+def draw_rectangle(x, y, width, height, color):
+    """Draw a filled rectangle."""
+    turtle.penup()
+    turtle.goto(x, y)
+    turtle.pendown()
+    turtle.fillcolor(color)
+    turtle.begin_fill()
+    for _ in range(2):
+        turtle.forward(width)
+        turtle.left(90)
+        turtle.forward(height)
+        turtle.left(90)
+    turtle.end_fill()
 
-# Membuat variabel untuk menyimpan nama
-NAMA_DEPAN = tk.StringVar()
-NAMA_BELAKANG = tk.StringVar()
+def draw_triangle(x, y, base, height, color):
+    """Draw a filled triangle."""
+    turtle.penup()
+    turtle.goto(x, y)
+    turtle.pendown()
+    turtle.fillcolor(color)
+    turtle.begin_fill()
+    turtle.goto(x + base / 2, y + height)
+    turtle.goto(x + base, y)
+    turtle.goto(x, y)
+    turtle.end_fill()
 
-# Fungsi untuk menampilkan pesan sapaan
-def tombol_click():
-    pesan = f"Hello {NAMA_DEPAN.get()} {NAMA_BELAKANG.get()}, Have a nice day!"
-    showinfo(title="Halo!", message=pesan)
+def draw_monas():
+    # Base of Monas
+    draw_rectangle(-75, -200, 150, 50, "gray")  # Bottom platform
+    draw_rectangle(-50, -150, 100, 30, "darkgray")  # Middle platform
+    draw_rectangle(-30, -120, 60, 20, "lightgray")  # Top platform
 
-# Membuat frame untuk input
-input_frame = ttk.Frame(window)
-input_frame.pack(padx=18, pady=10, fill="x", expand=True)
+    # Pillar of Monas
+    draw_rectangle(-10, -100, 20, 200, "white")
 
-# Membuat label dan entry untuk nama depan
-nama_depan_label = ttk.Label(input_frame, text="Nama Depan:")
-nama_depan_label.pack(padx=10, fill="x", expand=True)
-nama_depan_entry = ttk.Entry(input_frame, textvariable=NAMA_DEPAN)
-nama_depan_entry.pack(padx=10, fill="x", expand=True)
+    # Flame at the top
+    draw_triangle(-20, 100, 40, 50, "gold")  # Flame base
+    draw_triangle(-15, 130, 30, 30, "orange")  # Flame tip
 
-# Membuat label dan entry untuk nama belakang
-nama_belakang_label = ttk.Label(input_frame, text="Nama Belakang:")
-nama_belakang_label.pack(padx=10, fill="x", expand=True)
-nama_belakang_entry = ttk.Entry(input_frame, textvariable=NAMA_BELAKANG)
-nama_belakang_entry.pack(padx=10, fill="x", expand=True)
+def main():
+    turtle.speed(5)
+    turtle.bgcolor("white")
+    turtle.title("Gambar Monas")
 
-# Membuat tombol untuk menampilkan pesan
-tombol = ttk.Button(input_frame, text="Sapa!", command=tombol_click)
-tombol.pack(fill='x', expand=True, padx=10, pady=10)
+    # Draw Monas
+    draw_monas()
 
-window.mainloop()
+    # Finish
+    turtle.hideturtle()
+    turtle.done()
+
+if __name__ == "__main__":
+    main()

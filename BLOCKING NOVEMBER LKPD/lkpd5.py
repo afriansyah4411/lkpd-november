@@ -1,56 +1,88 @@
-import tkinter as tk
-from tkinter import ttk
+import turtle as t
 
-def hitung():
-    angka1 = float(angka1_entry.get())
-    angka2 = float(angka2_entry.get())
-    operator = operator_combobox.get()
+# Setup turtle
+t.speed(0)
+t.bgcolor("white")
+t.title("Logo SMK Prestasi Prima")
 
-    if operator == "+":
-        hasil = angka1 + angka2
-    elif operator == "-":
-        hasil = angka1 - angka2
-    elif operator == "*":
-        hasil = angka1 * angka2
-    elif operator == "/":
-        hasil = angka1 / angka2
-    else:
-        hasil = "Operator tidak valid"
+# Fungsi menggambar lingkaran berisi
+def draw_circle(color, radius, position):
+    t.penup()
+    t.goto(position)
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    t.circle(radius)
+    t.end_fill()
 
-    hasil_label.config(text=str(hasil))
+# Fungsi menggambar persegi
+def draw_square(color, size, position):
+    t.penup()
+    t.goto(position)
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    for _ in range(4):
+        t.forward(size)
+        t.left(90)
+    t.end_fill()
 
-# Membuat jendela
-window = tk.Tk()
-window.title("Kalkulator")
+# Fungsi menggambar persegi panjang
+def draw_rectangle(color, width, height, position, angle=0):
+    t.penup()
+    t.goto(position)
+    t.setheading(angle)  # Mengatur rotasi untuk kemiringan
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    for _ in range(2):
+        t.forward(width)
+        t.left(90)
+        t.forward(height)
+        t.left(90)
+    t.end_fill()
 
-# Frame input
-input_frame = ttk.Frame(window)
-input_frame.pack(padx=10, pady=10)
+# Lingkaran hitam luar
+draw_circle("black", 160, (0, -160))
 
-# Entry angka 1
-angka1_label = ttk.Label(input_frame, text="Angka 1:")
-angka1_label.grid(row=0, column=0, sticky="W")
-angka1_entry = ttk.Entry(input_frame)
-angka1_entry.grid(row=0, column=1)
+# Lingkaran putih kedua
+draw_circle("white", 140, (0, -140))
 
-# Entry angka 2
-angka2_label = ttk.Label(input_frame, text="Angka 2:")
-angka2_label.grid(row=1, column=0, sticky="W")
-angka2_entry = ttk.Entry(input_frame)
-angka2_entry.grid(row=1, column=1)
+# Lingkaran biru paling dalam
+draw_circle("blue", 100, (0, -100))
 
-# Combobox operator
-operator_label = ttk.Label(input_frame, text="Operator:")
-operator_label.grid(row=2, column=0, sticky="W")
-operator_combobox = ttk.Combobox(input_frame, values=["+", "-", "*", "/"])
-operator_combobox.grid(row=2, column=1)
+# ===== Telapak Tangan =====
+# Telapak tangan berada tepat di tengah
+draw_rectangle("red", 100, 40, (-50, -80))  # Telapak tangan sejajar tengah
 
-# Tombol Hitung
-hitung_button = ttk.Button(window, text="Hitung", command=hitung)
-hitung_button.pack(pady=10)
+# ===== Jempol =====
+thumb_angle = 30  # Ganti nilai ini untuk mengubah kemiringan jempol
+draw_rectangle("red", 23, 30, (-45, -20), angle=thumb_angle)  # Jempol sejajar dengan tangan
 
-# Label hasil
-hasil_label = ttk.Label(window)
-hasil_label.pack()
+# ===== Telunjuk =====
+draw_rectangle("red", 20, 90, (-35, -20))  # Telunjuk lebih tinggi
 
-window.mainloop()
+# ===== Jari Tengah =====
+draw_rectangle("red", 20, 40, (-11, -20))  # Jari tengah lebih tinggi
+
+# ===== Jari Manis =====
+draw_rectangle("red", 20, 33, (11, -20))  # Jari manis lebih tinggi
+
+# ===== Kelingking =====
+draw_rectangle("red", 20, 33, (33, -20))  # Kelingking lebih pendek dari jari tengah dan manis
+
+# Menambahkan teks "SMK PRESTASI PRIMA" di bawah logo
+t.penup()
+t.goto(0, -200)  # Menyesuaikan posisi teks
+t.color("black")
+t.write("SMK PRESTASI PRIMA", align="center", font=("Arial", 20, "bold"))
+
+# Menambahkan teks "IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH" di bawah teks sebelumnya
+t.penup()
+t.goto(0, -230)  # Menyesuaikan posisi teks
+t.color("black")
+t.write("IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH", align="center", font=("Arial", 14, "italic"))
+
+# Selesai menggambar
+t.hideturtle()
+t.done()
